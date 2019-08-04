@@ -17,9 +17,22 @@ module "wordpress" {
   asg_name                  = "wordpress-asg"
   vpc_zone_identifier       = ["${aws_subnet.public.id}"]
   health_check_type         = "EC2"
-  min_size                  = 3
+  min_size                  = 6
   max_size                  = 128
   desired_capacity          = 4
   wait_for_capacity_timeout = 0
+
+  tags_as_map= [
+    {
+      key                 = "Environment"
+      value               = "dev"
+      propagate_at_launch = true
+    },
+    {
+      key                 = "Project"
+      value               = "megasecret"
+      propagate_at_launch = true
+    },
+  ]
 
 } 
